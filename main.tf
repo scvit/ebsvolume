@@ -41,7 +41,7 @@ resource "aws_instance" "backup_ec2" {
 
 }
 
-/*
+
 # ebs volume 
 resource "aws_ebs_volume" "example" {
   type = "gp3"
@@ -59,19 +59,19 @@ resource "aws_ebs_volume" "example" {
 
 import {
   to = aws_ebs_volume.example
-  id = "vol-0556ce682f8fe3a01"
+  id = "vol-08d6b8825760bac75"
 }
 
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
-   volume_id   =  "vol-0f64fef1c4faec301"
-   instance_id = "i-092715b95501742bf"
+   volume_id   =  "vol-08d6b8825760bac75"
+   instance_id = "i-08ce1e57318ec4ba9"
   }
 
 import {
   to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:vol-0f64fef1c4faec301:i-092715b95501742bf"
+  id = "/dev/sdb:vol-08d6b8825760bac75:i-08ce1e57318ec4ba9"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
 
@@ -80,7 +80,7 @@ resource "aws_ebs_volume" "root" {
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"
-  size = 8
+  size = 10
   throughput = 125
   iops = 3000
 
@@ -93,8 +93,8 @@ resource "aws_ebs_volume" "root" {
 
 import {
   to = aws_ebs_volume.root
-  id = "vol-05310c3e1eb175c5f"
+  id = "vol-0be86ce25f03773a7"
 }
 
 
-*/ 
+

@@ -13,7 +13,7 @@ provider "aws" {
   #secret_key = var.secret_key
 }
 
-(* 
+
 # resource "aws_vpc" "main_change" {
 #   cidr_block       = "10.20.0.0/16"
 #   instance_tenancy = "default"
@@ -23,7 +23,7 @@ provider "aws" {
 #   tags = {
 #     Name = "check_vcs_mwjo_change"
 #   }
-# } *)
+# } 
 
 resource "aws_instance" "backup_ec2" {
   ami = "ami-02ecc1e340af39817" # custom ami 입력 
@@ -41,7 +41,7 @@ resource "aws_instance" "backup_ec2" {
 
 }
 
-(* /*
+/*
 # ebs volume 
 resource "aws_ebs_volume" "example" {
   type = "gp3"
@@ -97,4 +97,4 @@ import {
 }
 
 
-*/ *)
+*/ 

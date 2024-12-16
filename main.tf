@@ -27,7 +27,7 @@ provider "aws" {
 
 resource "aws_instance" "backup_ec2" {
   ami = "ami-02ecc1e340af39817" # custom ami 입력 
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
   key_name = "mw.jo-test"
   associate_public_ip_address = true
   subnet_id = "subnet-f67ad99d"
@@ -41,7 +41,7 @@ resource "aws_instance" "backup_ec2" {
 
 }
 
-
+/*
 # ebs volume 
 resource "aws_ebs_volume" "example" {
   type = "gp3"
@@ -95,6 +95,6 @@ import {
   to = aws_ebs_volume.root
   id = "vol-0be86ce25f03773a7"
 }
-
+*/
 
 

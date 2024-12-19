@@ -107,7 +107,7 @@ import {
 
 import {
   for_each = local.ebs_id
-  to = aws_ebs_volume_attachment.ebs_att
+  to = aws_ebs_volume_attachment.ebs_att[each.key]
   id = "${each.key}:${each.value}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }

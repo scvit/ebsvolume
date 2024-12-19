@@ -76,12 +76,12 @@ resource "aws_ebs_volume" "example" {
 
 }
 
-/*
+
 import {
   to = aws_ebs_volume.example
-  id = "vol-08d6b8825760bac75"
+  id = "vol-030d429bab6b3febc"
 }
-*/
+
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
@@ -89,13 +89,13 @@ import {
    instance_id = aws_instance.custom_ami_ec2.id
   }
 
-/*
+
 import {
   to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:vol-08d6b8825760bac75:i-08ce1e57318ec4ba9"
+  id = "/dev/sdb:vol-030d429bab6b3febc:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
-*/
+
 
 
 /*

@@ -45,9 +45,9 @@ resource "aws_instance" "custom_ami_ec2" {
 
     delete_on_termination = true
     volume_type           = "gp3" #each.value.ec2_root_volume.ec2_root_volume_type
-    volume_size           = "30" #each.value.ec2_root_volume.ec2_root_volume_size
+    volume_size           = "15" #each.value.ec2_root_volume.ec2_root_volume_size
     iops                  = 3000 #contains(["io1", "io2", "gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_iops != "" ? each.value.ec2_root_volume.ec2_root_volume_iops : null
-    throughput            = 250 #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
+    throughput            = 125 #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
 
     # tags = "mw-root-volume-tags" # merge({ Name = "vol-${regex("ec2-(.*)", "${each.key}")[0]}-root" }, try(each.value.ec2_root_volume.ec2_root_volume_sub_tag, {}))
   }
@@ -60,7 +60,7 @@ resource "aws_instance" "custom_ami_ec2" {
 
 }
 
-/*
+
 # ebs volume 
 resource "aws_ebs_volume" "example" {
   type = "gp3"
@@ -76,23 +76,26 @@ resource "aws_ebs_volume" "example" {
 
 }
 
+/*
 import {
   to = aws_ebs_volume.example
   id = "vol-08d6b8825760bac75"
 }
-
+*/
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
-   volume_id   =  "vol-08d6b8825760bac75"
-   instance_id = "i-08ce1e57318ec4ba9"
+   volume_id   =  aws_ebs_volume.example.id
+   instance_id = aws_instance.custom_ami_ec2.id
   }
 
+/*
 import {
   to = aws_volume_attachment.ebs_att
   id = "/dev/sdb:vol-08d6b8825760bac75:i-08ce1e57318ec4ba9"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
+*/
 
 # root volume
 resource "aws_ebs_volume" "root" {

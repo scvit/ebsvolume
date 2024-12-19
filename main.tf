@@ -83,20 +83,20 @@ resource "aws_ebs_volume" "example" {
 
 import {
   to = aws_ebs_volume.example
-  id = aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id
+  id = aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
 }
 
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
-   volume_id   =  aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id
+   volume_id   =  aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
    instance_id = aws_instance.custom_ami_ec2.id
   }
 
 
 import {
   to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:${aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id}:${aws_instance.custom_ami_ec2.id}"
+  id = "/dev/sdb:${aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
 

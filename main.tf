@@ -64,6 +64,14 @@ output "ebs_volume" {
 value = aws_instance.custom_ami_ec2.ebs_block_device
 }
 
+/*
+locals {
+  ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : aws_instance.custom_ami_ec2.id => v.volume_id }
+}
+
+
+
+
 
 # ebs volume 
 resource "aws_ebs_volume" "example" {
@@ -83,7 +91,7 @@ resource "aws_ebs_volume" "example" {
 
 import {
   to = aws_ebs_volume.example
-  id = aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
+  id =  local.ebs_id # aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
 }
 
 
@@ -99,7 +107,7 @@ import {
   id = "/dev/sdb:${aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
-
+*/
 
 
 

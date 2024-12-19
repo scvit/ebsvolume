@@ -49,7 +49,7 @@ resource "aws_instance" "custom_ami_ec2" {
     iops                  = 3000 #contains(["io1", "io2", "gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_iops != "" ? each.value.ec2_root_volume.ec2_root_volume_iops : null
     throughput            = 125 #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
 
-    tags = "mw-root-volume-tags" # merge({ Name = "vol-${regex("ec2-(.*)", "${each.key}")[0]}-root" }, try(each.value.ec2_root_volume.ec2_root_volume_sub_tag, {}))
+    # tags = "mw-root-volume-tags" # merge({ Name = "vol-${regex("ec2-(.*)", "${each.key}")[0]}-root" }, try(each.value.ec2_root_volume.ec2_root_volume_sub_tag, {}))
   }
 
 

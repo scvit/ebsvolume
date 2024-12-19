@@ -85,14 +85,14 @@ import {
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
-   volume_id   =  aws_ebs_volume.example.id
-   instance_id = aws_instance.custom_ami_ec2.id
+   volume_id   =  "vol-030d429bab6b3febc"
+   instance_id = "i-01bf533a221c471af"
   }
 
 
 import {
   to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:vol-030d429bab6b3febc:${aws_instance.custom_ami_ec2.id}"
+  id = "/dev/sdb:vol-030d429bab6b3febc:i-01bf533a221c471af"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
 

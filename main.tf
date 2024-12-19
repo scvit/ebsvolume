@@ -60,11 +60,11 @@ resource "aws_instance" "custom_ami_ec2" {
 
 }
 
-output "ec2_volume" {
+output "ebs_volume" {
 value = aws_instance.custom_ami_ec2.ebs_block_device
 }
 
-/*
+
 # ebs volume 
 resource "aws_ebs_volume" "example" {
   type = "gp3"
@@ -83,24 +83,24 @@ resource "aws_ebs_volume" "example" {
 
 import {
   to = aws_ebs_volume.example
-  id = aws_instance.custom_ami_ec2.
+  id = aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id
 }
 
 
  resource "aws_volume_attachment" "ebs_att" {
    device_name = "/dev/sdb"
-   volume_id   =  
-   instance_id = ""
+   volume_id   =  aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id
+   instance_id = aws_instance.custom_ami_ec2.id
   }
 
 
 import {
   to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:vol-030d429bab6b3febc:i-01bf533a221c471af"
+  id = "/dev/sdb:${aws_instance.custom_ami_ec2.ebs_block_device.0.volume_id}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
 
-*/
+
 
 
 /*

@@ -64,9 +64,9 @@ output "ebs_volume" {
 value = aws_instance.custom_ami_ec2.ebs_block_device
 }
 
-/*
+
 locals {
-  ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : aws_instance.custom_ami_ec2.id => v.volume_id }
+  ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : v.device_name => v.volume_id }
 }
 
 
@@ -75,6 +75,7 @@ locals {
 
 # ebs volume 
 resource "aws_ebs_volume" "example" {
+  for_each = local.ebs_id
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"
@@ -83,31 +84,34 @@ resource "aws_ebs_volume" "example" {
   iops = 3000
 
   tags = {
-    Name = "ebs_volume_import"
+    Name = "ebs_volume_import-${each.key}"
   }
 
 }
 
 
 import {
-  to = aws_ebs_volume.example
-  id =  local.ebs_id # aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
+  for_each = local.ebs_id
+  to = aws_ebs_volume.example[each.key]
+  id = each.value
 }
 
 
  resource "aws_volume_attachment" "ebs_att" {
-   device_name = "/dev/sdb"
-   volume_id   =  aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
+    for_each = local.ebs_id
+   device_name =  each.key # "/dev/sdb"
+   volume_id   =  each.value # aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
    instance_id = aws_instance.custom_ami_ec2.id
   }
 
 
 import {
-  to = aws_volume_attachment.ebs_att
-  id = "/dev/sdb:${aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id}:${aws_instance.custom_ami_ec2.id}"
+  for_each = local.ebs_id
+  to = aws_ebs_volume_attachment.ebs_att
+  id = "${each.key}:${each.value}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
-*/
+
 
 
 

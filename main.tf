@@ -97,6 +97,8 @@ import {
 }
 */
 
+
+/*
 # root volume
 resource "aws_ebs_volume" "root" {
   type = "gp3"

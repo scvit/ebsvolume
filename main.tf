@@ -98,7 +98,7 @@ import {
 
 
  resource "aws_volume_attachment" "ebs_att" {
-    for_each = local.ebs_id
+   for_each = local.ebs_id
    device_name =  each.key # "/dev/sdb"
    volume_id   =  each.value # aws_instance.custom_ami_ec2.ebs_block_device[0].volume_id
    instance_id = aws_instance.custom_ami_ec2.id
@@ -107,7 +107,7 @@ import {
 
 import {
   for_each = local.ebs_id
-  to = aws_ebs_volume_attachment.ebs_att[each.key]
+  to = aws_volume_attachment.ebs_att[each.key]
   id = "${each.key}:${each.value}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }

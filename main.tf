@@ -44,10 +44,10 @@ resource "aws_instance" "custom_ami_ec2" {
     #kms_key_id = local.ec2_encrypt == "true" ? local.ec2_kms_key_arn : null
 
     delete_on_termination = true
-    volume_type           = #each.value.ec2_root_volume.ec2_root_volume_type
-    volume_size           = #each.value.ec2_root_volume.ec2_root_volume_size
-    iops                  = #contains(["io1", "io2", "gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_iops != "" ? each.value.ec2_root_volume.ec2_root_volume_iops : null
-    throughput            = #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
+    volume_type           = "gp3" #each.value.ec2_root_volume.ec2_root_volume_type
+    volume_size           = "25" #each.value.ec2_root_volume.ec2_root_volume_size
+    iops                  = 3000 #contains(["io1", "io2", "gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_iops != "" ? each.value.ec2_root_volume.ec2_root_volume_iops : null
+    throughput            = 125 #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
 
     tags = "mw-root-volume-tags" # merge({ Name = "vol-${regex("ec2-(.*)", "${each.key}")[0]}-root" }, try(each.value.ec2_root_volume.ec2_root_volume_sub_tag, {}))
   }

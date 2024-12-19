@@ -79,7 +79,7 @@ resource "aws_ebs_volume" "example" {
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"
-  size = 25
+  size = 50
   throughput = 125
   iops = 3000
 

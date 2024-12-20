@@ -30,7 +30,7 @@ provider "aws" {
 
 
 resource "aws_instance" "custom_ami_ec2" {
-  ami = "ami-0377e279994781363" # custom ami 입력 
+  ami = "ami-046bb63c4eb2b2743" # custom ami 입력 
   instance_type = "t3.micro"
   key_name = "mw.jo-test"
   associate_public_ip_address = true
@@ -45,7 +45,7 @@ resource "aws_instance" "custom_ami_ec2" {
 
     delete_on_termination = true
     volume_type           = "gp3" #each.value.ec2_root_volume.ec2_root_volume_type
-    volume_size           = "15" #each.value.ec2_root_volume.ec2_root_volume_size
+    volume_size           = 30 #each.value.ec2_root_volume.ec2_root_volume_size
     iops                  = 3000 #contains(["io1", "io2", "gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_iops != "" ? each.value.ec2_root_volume.ec2_root_volume_iops : null
     throughput            = 125 #contains(["gp3"], each.value.ec2_root_volume.ec2_root_volume_type) && each.value.ec2_root_volume.ec2_root_volume_throughput != "" ? each.value.ec2_root_volume.ec2_root_volume_throughput : null
 
@@ -79,7 +79,7 @@ resource "aws_ebs_volume" "example" {
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"
-  size = 50
+  size = 20
   throughput = 125
   iops = 3000
 

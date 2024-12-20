@@ -64,7 +64,7 @@ output "ebs_volume" {
 value = aws_instance.custom_ami_ec2.ebs_block_device
 }
 
-
+/*
 locals {
   ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : v.device_name => v.volume_id }
 }
@@ -112,7 +112,7 @@ import {
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
 
-
+*/
 
 
 /*

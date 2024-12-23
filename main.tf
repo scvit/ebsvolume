@@ -90,11 +90,11 @@ resource "aws_ebs_volume" "example" {
 }
 
 
-#import {
-#  for_each = local.ebs_id
-#  to = aws_ebs_volume.example[each.key]
-#  id = each.value
-#}
+import {
+  for_each = local.ebs_id
+  to = aws_ebs_volume.example[each.key]
+  id = each.value
+}
 
 
  resource "aws_volume_attachment" "ebs_att" {

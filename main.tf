@@ -66,6 +66,7 @@ value = aws_instance.custom_ami_ec2.ebs_block_device
 
 
 locals {
+  depends_on = [aws_instance.custom_ami_ec2]
   ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : v.device_name => v.volume_id }
 }
 

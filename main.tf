@@ -66,7 +66,7 @@ value = aws_instance.custom_ami_ec2.ebs_block_device
 
 
 locals {
-  depends_on = [aws_instance.custom_ami_ec2]
+  
   ebs_id = {for k, v in aws_instance.custom_ami_ec2.ebs_block_device : v.device_name => v.volume_id }
 }
 
@@ -76,7 +76,7 @@ locals {
 
 # ebs volume 
 resource "aws_ebs_volume" "example" {
-  for_each = local.ebs_id
+  for_each = { for k, v in aws_instance.custom_ami_ec2 : v.id => [ for j in v.ebs_block_device.id : j ] } 
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"

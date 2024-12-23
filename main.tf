@@ -76,7 +76,7 @@ locals {
 
 # ebs volume 
 resource "aws_ebs_volume" "example" {
-  for_each = { for k, v in aws_instance.custom_ami_ec2 : v.id => [ for j in v.ebs_block_device.id : j ] } 
+  for_each = { for k, v in aws_instance.custom_ami_ec2 : v => [ for j in v.ebs_block_device.id : j ] } 
   type = "gp3"
  
   availability_zone = "ap-northeast-2a"
@@ -90,7 +90,13 @@ resource "aws_ebs_volume" "example" {
 
 }
 
+output "test" { 
+value = aws_ebs_volume.example[*] 
+}
 
+
+
+/*
 import {
   for_each = local.ebs_id
   to = aws_ebs_volume.example[each.key]
@@ -112,7 +118,7 @@ import {
   id = "${each.key}:${each.value}:${aws_instance.custom_ami_ec2.id}"
   # DEVICE_NAME:VOLUME_ID:INSTANCE_ID
 }
-
+*/
 
 
 

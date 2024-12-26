@@ -60,6 +60,48 @@ resource "aws_instance" "custom_ami_ec2" {
 
 }
 
+
+# Step 2: Use data sources to retrieve the existing EBS volumes created by the custom AMI
+data "aws_ebs_volume" "volume1" {
+  most_recent       = true
+  filter {
+    name   = "attachment.instance-id"
+    values = [aws_instance.custom_ami_ec2.id]
+  }
+  filter {
+    name   = "attachment.device"
+    values = ["/dev/sdb"]
+  }
+}
+
+data "aws_ebs_volume" "volume2" {
+  most_recent       = true
+  filter {
+    name   = "attachment.instance-id"
+    values = [aws_instance.custom_ami_ec2.id]
+  }
+  filter {
+    name   = "attachment.device"
+    values = ["/dev/sdc"]
+  }
+}
+
+data "aws_ebs_volume" "volume3" {
+  most_recent       = true
+  filter {
+    name   = "attachment.instance-id"
+    values = [aws_instance.custom_ami_ec2.id]
+  }
+  filter {
+    name   = "attachment.device"
+    values = ["/dev/sdd"]
+  }
+}
+
+
+
+
+
 /*
 output "ebs_volume" {
 value = aws_instance.custom_ami_ec2.ebs_block_device

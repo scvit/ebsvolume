@@ -100,6 +100,68 @@ data "aws_ebs_volume" "volume3" {
 
 
 
+# Step 3: Optionally manage EBS volumes using Terraform
+resource "aws_ebs_volume" "volume1" {
+  id = data.aws_ebs_volume.volume1.id
+
+  # Specify desired properties
+  size          = 20
+  volume_type   = "gp3"
+  iops          = 3000
+  throughput    = 125
+  tags = {
+    Name = "Managed-Volume1"
+  }
+}
+
+resource "aws_ebs_volume" "volume2" {
+  id = data.aws_ebs_volume.volume2.id
+
+  # Specify desired properties
+  size          = 20
+  volume_type   = "gp3"
+  iops          = 3000
+  throughput    = 125
+  tags = {
+    Name = "Managed-Volume2"
+  }
+}
+
+resource "aws_ebs_volume" "volume3" {
+  id = data.aws_ebs_volume.volume3.id
+
+  # Specify desired properties
+  size          = 20
+  volume_type   = "gp3"
+  iops          = 4000
+  throughput    = 250
+  tags = {
+    Name = "Managed-Volume3"
+  }
+}
+
+# Step 4: Manage attachment of EBS volumes if required
+resource "aws_volume_attachment" "attach_volume1" {
+  volume_id   = aws_ebs_volume.volume1.id
+  instance_id = aws_instance.custom_ami_ec2.id
+  device_name = "/dev/sdb"
+}
+
+resource "aws_volume_attachment" "attach_volume2" {
+  volume_id   = aws_ebs_volume.volume2.id
+  instance_id = aws_instance.custom_ami_ec2.id
+  device_name = "/dev/sdc"
+}
+
+resource "aws_volume_attachment" "attach_volume3" {
+  volume_id   = aws_ebs_volume.volume3.id
+  instance_id = aws_instance.custom_ami_ec2.id
+  device_name = "/dev/sdd"
+}
+
+
+
+
 
 
 /*

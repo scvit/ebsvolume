@@ -103,10 +103,11 @@ data "aws_ebs_volume" "volume3" {
 # Step 3: Optionally manage EBS volumes using Terraform
 resource "aws_ebs_volume" "volume1" {
   id = data.aws_ebs_volume.volume1.id
+  availability_zone = "ap-northeast-2a"
 
   # Specify desired properties
   size          = 20
-  volume_type   = "gp3"
+  type   = "gp3"
   iops          = 3000
   throughput    = 125
   tags = {
@@ -116,10 +117,11 @@ resource "aws_ebs_volume" "volume1" {
 
 resource "aws_ebs_volume" "volume2" {
   id = data.aws_ebs_volume.volume2.id
+availability_zone = "ap-northeast-2a"
 
   # Specify desired properties
   size          = 20
-  volume_type   = "gp3"
+  type   = "gp3"
   iops          = 3000
   throughput    = 125
   tags = {
@@ -129,10 +131,11 @@ resource "aws_ebs_volume" "volume2" {
 
 resource "aws_ebs_volume" "volume3" {
   id = data.aws_ebs_volume.volume3.id
+availability_zone = "ap-northeast-2a"
 
   # Specify desired properties
   size          = 20
-  volume_type   = "gp3"
+  type   = "gp3"
   iops          = 4000
   throughput    = 250
   tags = {

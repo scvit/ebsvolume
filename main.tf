@@ -102,7 +102,7 @@ data "aws_ebs_volume" "volume3" {
 
 # Step 3: Optionally manage EBS volumes using Terraform
 resource "aws_ebs_volume" "volume1" {
-  id = data.aws_ebs_volume.volume1.id
+  id = data.aws_ebs_volume.volume1.volume_id
   availability_zone = "ap-northeast-2a"
 
   # Specify desired properties
@@ -116,7 +116,7 @@ resource "aws_ebs_volume" "volume1" {
 }
 
 resource "aws_ebs_volume" "volume2" {
-  id = data.aws_ebs_volume.volume2.id
+  id = data.aws_ebs_volume.volume2.volume_id
 availability_zone = "ap-northeast-2a"
 
   # Specify desired properties
@@ -130,7 +130,7 @@ availability_zone = "ap-northeast-2a"
 }
 
 resource "aws_ebs_volume" "volume3" {
-  id = data.aws_ebs_volume.volume3.id
+  id = data.aws_ebs_volume.volume3.volume_id
 availability_zone = "ap-northeast-2a"
 
   # Specify desired properties

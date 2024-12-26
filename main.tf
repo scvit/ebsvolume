@@ -98,8 +98,11 @@ data "aws_ebs_volume" "volume3" {
   }
 }
 
+output "test" {
+value = data.aws_ebs_volume.volume1.volume_id
+}
 
-
+/*+
 # Step 3: Optionally manage EBS volumes using Terraform
 resource "aws_ebs_volume" "volume1" {
   id = data.aws_ebs_volume.volume1.volume_id
@@ -163,7 +166,7 @@ resource "aws_volume_attachment" "attach_volume3" {
 }
 
 
-
+*/
 
 
 
